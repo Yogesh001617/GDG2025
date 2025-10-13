@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Telemedicine Portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="container nav-container">
+            <div class="logo">
+                <img src="assets/logo.png" alt="Telemedicine Logo" />
+                <span>Telemedicine Portal</span>
+            </div>
+            <nav>
+                <a href="#">Home</a>
+                <a href="#">Features</a>
+                <a href="#">Doctors</a>
+                <a href="#">Contact</a>
+                <a href="#" class="btn btn-nav" id="loginBtn">Login</a>
+                <a href="#" class="btn btn-nav" id="logoutBtn" style="display:none;">Logout</a>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <section class="hero">
+            <div class="container hero-content">
+                <div class="animate-on-scroll fade-up">
+                    <h1>Connecting Rural Communities to Healthcare</h1>
+                    <p>Access quality medical consultations from the comfort of your home. Fast. Secure. Reliable.</p>
+                    <button id="book-appointment-btn" class="btn btn-primary">Book Appointment</button>
+                </div>
+                <img src="assets/doctor-patient.svg" alt="Doctor with Patient" class="hero-img animate-on-scroll fade-in">
+            </div>
+        </section>
+        <section class="features container" id="features">
+            <h2 class="animate-on-scroll fade-up">Why Use Our Portal?</h2>
+            <div class="features-list">
+                <div class="feature-card animate-on-scroll fade-up" style="transition-delay:0.1s">
+                    <img src="assets/video-call.svg" alt="Video Call">
+                    <h3>Video Consultations</h3>
+                    <p>Connect instantly with qualified doctors via secure video calls.</p>
+                </div>
+                <div class="feature-card animate-on-scroll fade-up" style="transition-delay:0.2s">
+                    <img src="assets/booking.svg" alt="Easy Booking">
+                    <h3>Easy Appointment Booking</h3>
+                    <p>Book appointments in just a few clicks. No more waiting in queues.</p>
+                </div>
+                <div class="feature-card animate-on-scroll fade-up" style="transition-delay:0.3s">
+                    <img src="assets/secure.svg" alt="Secure and Private">
+                    <h3>Secure & Private</h3>
+                    <p>Your medical data is encrypted and confidential.</p>
+                </div>
+                <div class="feature-card animate-on-scroll fade-up" style="transition-delay:0.4s">
+                    <img src="assets/community.svg" alt="For Everyone">
+                    <h3>Accessible for All</h3>
+                    <p>Designed for rural connectivity and low-bandwidth environments.</p>
+                </div>
+            </div>
+        </section>
+        <section id="video-chat" style="display:none;">
+            <div class="container">
+                <h2>Video Consultation</h2>
+                <div class="video-wrapper">
+                    <video id="localVideo" autoplay playsinline muted></video>
+                    <video id="remoteVideo" autoplay playsinline></video>
+                </div>
+                <div>
+                    <button id="startCallBtn" class="btn btn-primary">Start Call</button>
+                    <button id="endCallBtn" class="btn btn-secondary">End Call</button>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <div class="container footer-content">
+            <div>
+                &copy; 2025 Telemedicine Portal. All Rights Reserved.
+            </div>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeLogin">&times;</span>
+        <h2>Login</h2>
+        <form id="loginForm">
+          <input type="text" placeholder="Username" required name="username" />
+          <input type="password" placeholder="Password" required name="password" />
+          <button type="submit" class="btn btn-primary">Login</button>
+          <p>Don't have an account? <a href="#" id="showRegister">Register</a></p>
+        </form>
+      </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div id="registerModal" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeRegister">&times;</span>
+        <h2>Register</h2>
+        <form id="registerForm">
+          <input type="text" placeholder="Username" required name="username" />
+          <input type="email" placeholder="Email" required name="email" />
+          <input type="password" placeholder="Password" required name="password" />
+          <select name="role" required>
+            <option value="">Select Role</option>
+            <option value="patient">Patient</option>
+            <option value="doctor">Doctor</option>
+          </select>
+          <button type="submit" class="btn btn-primary">Register</button>
+          <p>Already have an account? <a href="#" id="showLogin">Login</a></p>
+        </form>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
