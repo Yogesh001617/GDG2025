@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Glow & Go — Beauty Parlour Booking</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Stripe JS (used for redirecting to Checkout) -->
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#home" class="logo">Glow & Go</a>
+      <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="btn-primary book-now-btn" id="headerBookBtn">Book Now</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO / HOME -->
+    <section id="home" class="hero">
+      <div class="container hero-grid">
+        <div class="hero-text">
+          <h1>Glow & Go — Your beauty, your time</h1>
+          <p>Book appointments online and pay securely. Hair, nails, facials and premium packages — tailored for you.</p>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#services">Explore Services</a>
+            <button class="btn-secondary" id="heroBookBtn">Book Appointment</button>
+          </div>
+        </div>
+        <div class="hero-image">
+          <img src="https://images.unsplash.com/photo-1543163521-1bf539c55f0a?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=43210bd9d2f8d3b2f295a3b7d6c6a1b1" alt="Beauty salon" />
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="container section">
+      <h2 class="section-title">Services</h2>
+      <p class="section-sub">Choose a service and book a convenient slot. Payments handled securely via Stripe (test mode example).</p>
+
+      <div class="services-grid" id="servicesGrid">
+        <article class="service-card" data-id="basic-facial" data-name="Basic Facial" data-price="25">
+          <img src="https://images.unsplash.com/photo-1542444459-db0f4f7e29a1?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=0e18a2e2e0febb1a2715c15f5b2d9c1b" alt="Facial" />
+          <div class="card-body">
+            <h3>Basic Facial</h3>
+            <p>Refreshing facial treatment for glowing skin. Duration: 45 mins.</p>
+            <div class="card-footer">
+              <div class="price">$25</div>
+              <button class="btn-primary book-btn">Book & Pay</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-card" data-id="deluxe-spa" data-name="Deluxe Spa Package" data-price="75">
+          <img src="https://images.unsplash.com/photo-1519838261149-7b8f5d3c0f3c?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=cc762eafc7c2b02b9993b2c18f48b2b7" alt="Spa" />
+          <div class="card-body">
+            <h3>Deluxe Spa Package</h3>
+            <p>Luxury massage + steam + facial. Duration: 2 hours.</p>
+            <div class="card-footer">
+              <div class="price">$75</div>
+              <button class="btn-primary book-btn">Book & Pay</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-card" data-id="manicure-pedicure" data-name="Manicure & Pedicure" data-price="40">
+          <img src="https://images.unsplash.com/photo-1556228720-037b7f38d95f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=4f9fc3d2c9ea3f6b3a4a3a7e4c47d5a1" alt="Manicure" />
+          <div class="card-body">
+            <h3>Manicure & Pedicure</h3>
+            <p>Professional nail care and polish. Duration: 60 mins.</p>
+            <div class="card-footer">
+              <div class="price">$40</div>
+              <button class="btn-primary book-btn">Book & Pay</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="service-card" data-id="hair-styling" data-name="Hair Styling" data-price="55">
+          <img src="https://images.unsplash.com/photo-1499896213143-0e74f5d8f3e9?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=a9e9c9c8c2e1f8f5b6c3a1e0d4b5a2c6" alt="Hair" />
+          <div class="card-body">
+            <h3>Hair Styling</h3>
+            <p>Cut, style and finish by our senior stylists. Duration: 90 mins.</p>
+            <div class="card-footer">
+              <div class="price">$55</div>
+              <button class="btn-primary book-btn">Book & Pay</button>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about" class="container section about-section">
+      <h2 class="section-title">About Us</h2>
+      <div class="about-grid">
+        <div>
+          <p>Glow & Go is a modern beauty parlour offering curated treatments for skin, hair and nails. Our mission is to make premium services accessible, easy to book and safe to pay for online.</p>
+          <ul>
+            <li>Experienced stylists & beauticians</li>
+            <li>Hygienic, relaxing environment</li>
+            <li>Flexible hours & online payments</li>
+          </ul>
+        </div>
+        <div>
+          <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=e9a2b1fcd3ea7018b3b5a2d8fe1c2abc" alt="Salon team" />
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container section">
+      <h2 class="section-title">Contact Us</h2>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Get in touch</h3>
+          <p>Email: hello@glowandgo.example</p>
+          <p>Phone: +1 (555) 123-4567</p>
+          <p>Address: 123 Beauty Lane, Suite 5, City</p>
+        </div>
+
+        <form id="contactForm" class="contact-form" onsubmit="submitContact(event)">
+          <label>
+            Your name
+            <input type="text" name="name" required />
+          </label>
+          <label>
+            Email
+            <input type="email" name="email" required />
+          </label>
+          <label>
+            Message
+            <textarea name="message" rows="4" required></textarea>
+          </label>
+          <button class="btn-primary" type="submit">Send Message</button>
+          <p id="contactResult" class="form-result" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> Glow & Go • All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- BOOKING MODAL -->
+  <div class="modal" id="bookingModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-content">
+      <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+      <h2 id="modalTitle">Book: <span id="modalServiceName"></span></h2>
+
+      <form id="bookingForm">
+        <input type="hidden" name="serviceId" id="serviceId" />
+        <label>
+          Your full name
+          <input type="text" name="customerName" id="customerName" required />
+        </label>
+        <label>
+          Email
+          <input type="email" name="email" id="customerEmail" required />
+        </label>
+        <label>
+          Date
+          <input type="date" name="date" id="appointmentDate" required />
+        </label>
+        <label>
+          Time
+          <input type="time" name="time" id="appointmentTime" required />
+        </label>
+        <div class="modal-row">
+          <div class="price-note">Price: <strong id="modalPrice">$0</strong></div>
+          <button class="btn-primary" type="submit">Pay & Confirm</button>
+        </div>
+        <p id="bookingResult" class="form-result" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
