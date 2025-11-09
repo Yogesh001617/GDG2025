@@ -3,96 +3,280 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Glow & Go — Beauty Parlour Booking</title>
+  <title>CURE GLAMS — Professional 3D Booking</title>
+
+  <!-- Web fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@500;700&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="styles.css" />
-  <!-- Stripe JS (used for redirecting to Checkout) -->
-  <script src="https://js.stripe.com/v3/"></script>
+  <meta name="description" content="CURE GLAMS — Professional beauty parlour booking site with 3D preview cards and easy booking flow." />
 </head>
 <body>
-  <header class="site-header">
+  <header class="site-header" role="banner">
     <div class="container header-inner">
-      <a href="#home" class="logo">Glow & Go</a>
-      <nav class="nav">
+      <a href="home.html" class="logo"><span class="logo-mark">CG</span> CURE GLAMS</a>
+      <nav class="nav" aria-label="Main navigation">
         <a href="#home">Home</a>
         <a href="#services">Services</a>
+        <a href="bookings.html" id="bookingsLink">Bookings</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="btn-primary book-now-btn" id="headerBookBtn">Book Now</button>
-      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+
+      <div class="header-actions">
+        <button class="btn-secondary" id="headerBookBtn">Book Now</button>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">☰</button>
+      </div>
     </div>
   </header>
 
   <main>
-    <!-- HERO / HOME -->
+    <!-- HERO -->
     <section id="home" class="hero">
       <div class="container hero-grid">
         <div class="hero-text">
-          <h1>Glow & Go — Your beauty, your time</h1>
-          <p>Book appointments online and pay securely. Hair, nails, facials and premium packages — tailored for you.</p>
+          <h1><span class="serif">CURE GLAMS</span> — professional beauty, effortless booking</h1>
+          <p class="lead">Curated facials, hair, nails, bridal services and mehendi. Try the interactive 3D service cards and book online — demo bookings are stored locally.</p>
           <div class="hero-actions">
-            <a class="btn-primary" href="#services">Explore Services</a>
-            <button class="btn-secondary" id="heroBookBtn">Book Appointment</button>
+            <a class="btn-primary shimmer" href="#services">Explore Services</a>
+            <button class="btn-outline" id="heroBookBtn">Book Appointment</button>
           </div>
+          <ul class="hero-features" aria-hidden="true">
+            <li>Secure demo bookings</li>
+            <li>On-location bridal & reception service</li>
+            <li>Professional stylists & artists</li>
+          </ul>
         </div>
-        <div class="hero-image">
-          <img src="https://images.unsplash.com/photo-1543163521-1bf539c55f0a?q=80&w=900&auto=format&fit=crop&ixlib=rb-4.0.3&s=43210bd9d2f8d3b2f295a3b7d6c6a1b1" alt="Beauty salon" />
+
+        <div class="hero-image" aria-hidden="true">
+          <img src="https://i.pinimg.com/originals/a1/ac/49/a1ac49f94b20641eea081722320dd725.jpg" alt="Beauty salon interior" />
         </div>
       </div>
     </section>
 
     <!-- SERVICES -->
     <section id="services" class="container section">
-      <h2 class="section-title">Services</h2>
-      <p class="section-sub">Choose a service and book a convenient slot. Payments handled securely via Stripe (test mode example).</p>
+      <div class="section-header">
+        <h2 class="section-title">Services</h2>
+        <p class="section-sub">Tap a card to open booking. Prices shown in INR — ranges indicate complexity/length variants.</p>
+      </div>
 
-      <div class="services-grid" id="servicesGrid">
-        <article class="service-card" data-id="basic-facial" data-name="Basic Facial" data-price="25">
-          <img src="https://images.unsplash.com/photo-1542444459-db0f4f7e29a1?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=0e18a2e2e0febb1a2715c15f5b2d9c1b" alt="Facial" />
-          <div class="card-body">
-            <h3>Basic Facial</h3>
-            <p>Refreshing facial treatment for glowing skin. Duration: 45 mins.</p>
-            <div class="card-footer">
-              <div class="price">$25</div>
-              <button class="btn-primary book-btn">Book & Pay</button>
+      <div class="services-grid" id="servicesGrid" aria-live="polite">
+        <!-- Example service card: Facial -->
+        <article class="service-card" data-id="facial" data-name="Facial Treatments" data-price="500-1000" data-duration="45-75">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://th.bing.com/th/id/OIP.1Zg5q0yJHsv6d23IAcXm2gHaEK?w=322&h=181&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1" alt="Facial treatments" />
+            <div class="card-body">
+              <h3>Facial Treatments</h3>
+              <p class="muted">From express glow to anti-aging facial. Duration and price depend on treatment selected.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹500 – ₹1,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
             </div>
           </div>
+          <div class="shine" aria-hidden="true"></div>
         </article>
 
-        <article class="service-card" data-id="deluxe-spa" data-name="Deluxe Spa Package" data-price="75">
-          <img src="https://images.unsplash.com/photo-1519838261149-7b8f5d3c0f3c?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=cc762eafc7c2b02b9993b2c18f48b2b7" alt="Spa" />
-          <div class="card-body">
-            <h3>Deluxe Spa Package</h3>
-            <p>Luxury massage + steam + facial. Duration: 2 hours.</p>
-            <div class="card-footer">
-              <div class="price">$75</div>
-              <button class="btn-primary book-btn">Book & Pay</button>
+        <!-- Manicure & Pedicure -->
+        <article class="service-card" data-id="manicure-pedicure" data-name="Manicure & Pedicure" data-price="499" data-duration="60">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://th.bing.com/th/id/OIP.4PHeMKQnWEW0ppoNlVJvqQHaE8?w=290&h=194&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1" alt="Manicure and pedicure" />
+            <div class="card-body">
+              <h3>Manicure & Pedicure</h3>
+              <p class="muted">Professional nail care and polish — shaping, cuticle, massage & finish.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹499</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
             </div>
           </div>
+          <div class="shine" aria-hidden="true"></div>
         </article>
 
-        <article class="service-card" data-id="manicure-pedicure" data-name="Manicure & Pedicure" data-price="40">
-          <img src="https://images.unsplash.com/photo-1556228720-037b7f38d95f?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=4f9fc3d2c9ea3f6b3a4a3a7e4c47d5a1" alt="Manicure" />
-          <div class="card-body">
-            <h3>Manicure & Pedicure</h3>
-            <p>Professional nail care and polish. Duration: 60 mins.</p>
-            <div class="card-footer">
-              <div class="price">$40</div>
-              <button class="btn-primary book-btn">Book & Pay</button>
+        <!-- Hairstyling -->
+        <article class="service-card" data-id="hair-styling" data-name="Hairstyling" data-price="400-2000" data-duration="30-120">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://th.bing.com/th/id/OIP.27S6zwi4z0Ll51js1W5CjQHaFb?w=196&h=184&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1" alt="Hair styling" />
+            <div class="card-body">
+              <h3>Hairstyling</h3>
+              <p class="muted">Cuts, styling, blowouts and special-event hair by senior stylists.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹400 – ₹2,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
             </div>
           </div>
+          <div class="shine" aria-hidden="true"></div>
         </article>
 
-        <article class="service-card" data-id="hair-styling" data-name="Hair Styling" data-price="55">
-          <img src="https://images.unsplash.com/photo-1499896213143-0e74f5d8f3e9?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=a9e9c9c8c2e1f8f5b6c3a1e0d4b5a2c6" alt="Hair" />
-          <div class="card-body">
-            <h3>Hair Styling</h3>
-            <p>Cut, style and finish by our senior stylists. Duration: 90 mins.</p>
-            <div class="card-footer">
-              <div class="price">$55</div>
-              <button class="btn-primary book-btn">Book & Pay</button>
+        <!-- Hair Treatment -->
+        <article class="service-card" data-id="hair-treatment" data-name="Hair Treatment" data-price="1000-6000" data-duration="60-240">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://tse4.mm.bing.net/th/id/OIP.tdmv7FP6ejWvFya2Wd1mMgHaE8?cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Hair treatment" />
+            <div class="card-body">
+              <h3>Hair Treatment</h3>
+              <p class="muted">Keratin, deep conditioning, hair spa & restorative protocols.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹1,000 – ₹6,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
             </div>
           </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <!-- Party Makeup -->
+        <article class="service-card" data-id="party-makeup" data-name="Party Makeup" data-price="1000-5000" data-duration="45-90">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://th.bing.com/th/id/OIP.RH9B1rZb8nZPmGK2ntVgtgHaIV?w=153&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1" alt="Party makeup" />
+            <div class="card-body">
+              <h3>Party Makeup</h3>
+              <p class="muted">Glam looks for events — glam, dewy, smoky and more.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹1,000 – ₹5,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <!-- Engagement Makeup -->
+        <article class="service-card" data-id="engagement-makeup" data-name="Engagement Makeup" data-price="4000-9000" data-duration="90-180">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://th.bing.com/th/id/OIP.RH9B1rZb8nZPmGK2ntVgtgHaIV?w=153&h=180&c=7&r=0&o=7&cb=ucfimg2&dpr=1.3&pid=1.7&rm=3&ucfimg=1" alt="Engagement makeup" />
+            <div class="card-body">
+              <h3>Engagement Makeup</h3>
+              <p class="muted">Bridal-level makeup for engagement functions and trials.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹4,000-₹9,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <!-- Bridal -->
+        <article class="service-card" data-id="bridal-makeup" data-name="Bridal Makeup" data-price="14000-25000" data-duration="240-480">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://i.pinimg.com/originals/02/47/56/024756d6a1482a7ab2ad3957b2e98f61.jpg" alt="Bridal makeup" />
+            <div class="card-body">
+              <h3>Bridal Makeup</h3>
+              <p class="muted">Complete bridal package with trials and on-location service.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹14,000 – ₹25,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <!-- Reception -->
+        <article class="service-card" data-id="reception-makeup" data-name="Reception Makeup" data-price="10000-20000" data-duration="180-300">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://tse3.mm.bing.net/th/id/OIP.0QizwP1ECfvYRT4iQyv1TAHaE8?cb=ucfimg2ucfimg=1&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Reception makeup" />
+            <div class="card-body">
+              <h3>Reception Makeup</h3>
+              <p class="muted">Post-wedding looks and reception styling; on-site service available.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹10,000 – ₹20,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <!-- Mehendi variants: each card separated -->
+        <article class="service-card" data-id="mehendi-one-hand" data-name="Mehendi — One Hand (Arabic)" data-price="100" data-duration="30">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://www.finetoshine.com/wp-content/uploads/Cute-Arabic-Mehndi-Designs-2021-with-Videos-for-Hands.jpg" alt="Mehendi one hand" />
+            <div class="card-body">
+              <h3>Mehendi — One Hand (Arabic)</h3>
+              <p class="muted">Arabic-style design on both sides of one hand.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹100</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <article class="service-card" data-id="mehendi-palm" data-name="Mehendi — Palm Length" data-price="200" data-duration="45">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://simple-mehndidesign.com/wp-content/uploads/2024/10/palm-front-hand-designs-of-mehndi.jpg" alt="Mehendi palm" />
+            <div class="card-body">
+              <h3>Mehendi — Palm Length</h3>
+              <p class="muted">Design covering palm length.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹200</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <article class="service-card" data-id="mehendi-bangle" data-name="Mehendi — Bangle Length" data-price="300" data-duration="60">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://www.postoast.com/wp-content/uploads/2023/08/best-henna-designs-279x349.jpg" alt="Mehendi bangle" />
+            <div class="card-body">
+              <h3>Mehendi — Bangle Length</h3>
+              <p class="muted">Design up to bangle length on arm.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹300</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <article class="service-card" data-id="mehendi-elbow" data-name="Mehendi — Elbow Length" data-price="800-1000" data-duration="120-180">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://i.pinimg.com/736x/fe/60/e4/fe60e4c0ae992d415f949077c5d5f555.jpg" alt="Mehendi elbow" />
+            <div class="card-body">
+              <h3>Mehendi — Elbow Length</h3>
+              <p class="muted">Design reaching elbow — complexity affects price.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹800 – ₹1,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
+        </article>
+
+        <article class="service-card" data-id="mehendi-above-elbow" data-name="Mehendi — Above Elbow" data-price="1500-2000" data-duration="240-360">
+          <div class="accent-strip" aria-hidden="true"></div>
+          <div class="card-inner">
+            <img src="https://i.ytimg.com/vi/xEB22NV9CTY/maxresdefault.jpg" alt="Mehendi above elbow" />
+            <div class="card-body">
+              <h3>Mehendi — Above Elbow</h3>
+              <p class="muted">Extended designs above elbow; price varies with detail.</p>
+              <div class="card-footer">
+                <div class="price-badge">₹1,500 – ₹2,000</div>
+                <button class="btn-primary book-btn">Book</button>
+              </div>
+            </div>
+          </div>
+          <div class="shine" aria-hidden="true"></div>
         </article>
       </div>
     </section>
@@ -102,11 +286,11 @@
       <h2 class="section-title">About Us</h2>
       <div class="about-grid">
         <div>
-          <p>Glow & Go is a modern beauty parlour offering curated treatments for skin, hair and nails. Our mission is to make premium services accessible, easy to book and safe to pay for online.</p>
+          <p>CURE GLAMS is a professional beauty parlour combining curated treatments with experienced stylists and artists. We focus on hygiene, craft and an exceptional client experience.</p>
           <ul>
             <li>Experienced stylists & beauticians</li>
-            <li>Hygienic, relaxing environment</li>
-            <li>Flexible hours & online payments</li>
+            <li>Premium products & hygiene standards</li>
+            <li>Flexible hours & on-location bridal services</li>
           </ul>
         </div>
         <div>
@@ -117,27 +301,27 @@
 
     <!-- CONTACT -->
     <section id="contact" class="container section">
-      <h2 class="section-title">Contact Us</h2>
+      <h2 class="section-title">Contact & Enquiries</h2>
       <div class="contact-grid">
         <div class="contact-card">
           <h3>Get in touch</h3>
-          <p>Email: hello@glowandgo.example</p>
-          <p>Phone: +1 (555) 123-4567</p>
-          <p>Address: 123 Beauty Lane, Suite 5, City</p>
+          <p>Email: <a href="cureglam.in@gmail.com">cureglam.in@gmail.com</a></p>
+          <p>Phone: +91 91497 54446</p>
+          <p>Address: Kathghariya , Haldwani , Nainital</p>
         </div>
 
-        <form id="contactForm" class="contact-form" onsubmit="submitContact(event)">
+        <form id="contactForm" class="contact-form" onsubmit="submitContact(event)" novalidate>
           <label>
             Your name
-            <input type="text" name="name" required />
+            <input type="text" name="name" required aria-required="true" />
           </label>
           <label>
             Email
-            <input type="email" name="email" required />
+            <input type="email" name="email" required aria-required="true" />
           </label>
           <label>
             Message
-            <textarea name="message" rows="4" required></textarea>
+            <textarea name="message" rows="4" required aria-required="true"></textarea>
           </label>
           <button class="btn-primary" type="submit">Send Message</button>
           <p id="contactResult" class="form-result" aria-live="polite"></p>
@@ -146,19 +330,19 @@
     </section>
   </main>
 
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
-      <p>© <span id="year"></span> Glow & Go • All rights reserved.</p>
+      <p class="copyright">© <span id="year"></span> CURE GLAMS • All rights reserved.</p>
     </div>
   </footer>
 
   <!-- BOOKING MODAL -->
-  <div class="modal" id="bookingModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
-    <div class="modal-content">
+  <div class="modal" id="bookingModal" aria-hidden="true" role="dialog" aria-labelledby="modalTitle" aria-modal="true">
+    <div class="modal-content" role="document">
       <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
       <h2 id="modalTitle">Book: <span id="modalServiceName"></span></h2>
 
-      <form id="bookingForm">
+      <form id="bookingForm" novalidate>
         <input type="hidden" name="serviceId" id="serviceId" />
         <label>
           Your full name
@@ -169,16 +353,29 @@
           <input type="email" name="email" id="customerEmail" required />
         </label>
         <label>
-          Date
-          <input type="date" name="date" id="appointmentDate" required />
+          Phone
+          <input type="tel" name="phone" id="customerPhone" pattern="[0-9+\-\s()]{7,20}" placeholder="+91 98765 43210" />
         </label>
+        <div class="booking-row">
+          <label>
+            Date
+            <input type="date" name="date" id="appointmentDate" required />
+          </label>
+          <label>
+            Time
+            <input type="time" name="time" id="appointmentTime" required />
+          </label>
+        </div>
+
         <label>
-          Time
-          <input type="time" name="time" id="appointmentTime" required />
+          Notes (optional)
+          <textarea name="notes" id="notes" rows="2" placeholder="Any preferences or allergies"></textarea>
         </label>
+
         <div class="modal-row">
-          <div class="price-note">Price: <strong id="modalPrice">$0</strong></div>
-          <button class="btn-primary" type="submit">Pay & Confirm</button>
+          <div class="price-note">Price: <strong id="modalPrice">₹0</strong></div>
+          <div class="duration-note muted" id="modalDuration"></div>
+          <button class="btn-primary" type="submit">Confirm Booking</button>
         </div>
         <p id="bookingResult" class="form-result" aria-live="polite"></p>
       </form>

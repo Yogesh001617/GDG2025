@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bookings — CURE GLAMS (Demo)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="logo"><span class="logo-mark">CG</span> CURE GLAMS</a>
+      <nav class="nav">
+        <a href="index.html">Home</a>
+        <a href="bookings.html" aria-current="page">Bookings</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container section">
+    <h1 class="section-title">Bookings (Demo)</h1>
+    <p class="section-sub">Bookings made on this demo site are stored locally in your browser (localStorage). Use the tools below to export or clear demo data.</p>
+
+    <div class="bookings-controls">
+      <button id="exportJson" class="btn-primary">Export JSON</button>
+      <button id="clearBookings" class="btn-secondary">Clear All</button>
+      <button id="refreshList" class="btn-outline">Refresh</button>
+    </div>
+
+    <div id="bookingsList" class="bookings-list" aria-live="polite"></div>
+
+    <p class="muted" style="margin-top:14px;">This demo page is client-side only. To persist bookings you would POST the booking payload to a server endpoint and store it in a database.</p>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>© <span id="year"></span> CURE GLAMS • Demo</p>
+    </div>
+  </footer>
+
+  <script>
+    // Minimal bookings page JS to render localStorage bookings (key: 'cureglams_bookings')
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const listEl = document.getElementById('bookingsList');
+
+    function loadBookings() {
+      try {
+        return JSON.parse(localStorage.getItem('cureglams_bookings') || '[]');
+      } catch {
+        return [];
+      }
+    }
+
+    function renderBookings() {
+      const bookings = loadBookings();
+      if (!bookings.length) {
+        listEl.innerHTML = '<div class="card contact-card">No demo bookings found. Use the main page to add a booking.</div>';
+        return;
+      }
+      const html = bookings.map(b => {
+        const time = new Date(b.createdAt).toLocaleString();
+        return `
+        <div class="booking-row card">
+          <div class="booking-meta">
+            <strong>${b.serviceName}</strong> <span class="muted">(${b.price ? '₹' + b.price : '—'})</span>
+            <div class="muted small">By: ${b.customerName} • ${b.email} • ${b.phone || '—'}</div>
+            <div class="muted small">When: ${b.date} ${b.time} • Booked: ${time}</div>
+            <div class="muted small">Ref: ${b.id}</div>
+          </div>
+          <div class="booking-actions">
+            <button class="btn-secondary copy-json" data-id="${b.id}">Copy JSON</button>
+            <button class="btn-outline delete-booking" data-id="${b.id}">Delete</button>
+          </div>
+        </div>`;
+      }).join('');
+      listEl.innerHTML = html;
+
+      // attach handlers
+      document.querySelectorAll('.delete-booking').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-id');
+          const items = loadBookings().filter(x => x.id !== id);
+          localStorage.setItem('cureglams_bookings', JSON.stringify(items));
+          renderBookings();
+        });
+      });
+      document.querySelectorAll('.copy-json').forEach(btn => {
+        btn.addEventListener('click', async () => {
+          const id = btn.getAttribute('data-id');
+          const items = loadBookings();
+          const booking = items.find(x => x.id === id);
+          if (booking) {
+            await navigator.clipboard.writeText(JSON.stringify(booking, null, 2));
+            btn.textContent = 'Copied';
+            setTimeout(()=> btn.textContent = 'Copy JSON', 1200);
+          }
+        });
+      });
+    }
+
+    document.getElementById('exportJson').addEventListener('click', () => {
+      const items = loadBookings();
+      const blob = new Blob([JSON.stringify(items, null, 2)], {type: 'application/json'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'cureglams_bookings.json';
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    document.getElementById('clearBookings').addEventListener('click', () => {
+      if (!confirm('Clear all demo bookings from localStorage?')) return;
+      localStorage.removeItem('cureglams_bookings');
+      renderBookings();
+    });
+
+    document.getElementById('refreshList').addEventListener('click', renderBookings);
+
+    renderBookings();
+  </script>
+</body>
+</html>
